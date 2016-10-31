@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pms.bean.CBDParking;
 import com.pms.bean.Company;
+import com.pms.bean.User;
+import com.pms.service.UserService;
 import com.pms.service.impl.CompanyServiceImpl;
 
 @Controller
@@ -20,7 +22,10 @@ import com.pms.service.impl.CompanyServiceImpl;
 public class CompanyController {
 	@Resource
 	private CompanyServiceImpl impl;
-
+  
+	@Resource
+	private UserService userService;
+	
 	// 以下就是各自需要写的方法，注意命名规范。
 	@RequestMapping(path = "/kongxianCBDParking")
 	public @ResponseBody List<CBDParking> kongxianCBDParking(String companyId,
@@ -33,8 +38,8 @@ public class CompanyController {
 		System.out.println(list);
 
 		return list;
-
-	}
+ 
+	 }
 
 	@RequestMapping("/list")
 	@ResponseBody
@@ -53,4 +58,23 @@ public class CompanyController {
 
 	}
 
+   @RequestMapping("/save")
+	@ResponseBody
+	public String Save(Company company ,User user){
+	   try {
+		
+		   user.setUserType(2);
+		   userService.add(user);
+		   company.setUserId(userService.fingbyName(user.getUserName()).getUserId());
+		   company.setCbdParking(null);
+		   company.setContract(null);
+		   impl.save(company);
+	  } catch (Exception e) {
+		// TODO: handle exception
+		  e.printStackTrace();
+		  return "1";
+	  }
+	   
+	   return "0";
+   }
 }

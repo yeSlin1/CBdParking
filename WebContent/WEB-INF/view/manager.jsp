@@ -77,6 +77,8 @@
                <div class="tab-pane active " id="home" ><!-- 修改管理员信息-->
                     <div >
                         <h3 style="margin-left: 600px" align="left"> 车位信息管理系统</h3>
+                    
+                    <img alt="" src="/img/parking.jpg">
                     </div>
                     <br/>
                     
@@ -182,7 +184,7 @@
                 </div><!--parking -->
              
 
-                <div class="tab-pane"><!--增加企业-->
+                <div class="tab-pane" id="AddCpmpany"><!--增加企业-->
                     <div style="margin-left: 45%">
                         <h3 align="left"> 新增企业</h3>
                     </div>
@@ -191,13 +193,13 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">企业登录名：</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" placeholder="企业登录名">
+                                <input type="text" class="form-control" name="userName" placeholder="企业登录名">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">企业登陆密码：</label>
                             <div class="col-sm-7">
-                                <input type="password" class="form-control" placeholder="Password">
+                                <input type="password" class="form-control" name="userPassword" placeholder="Password">
                             </div>
                         </div>
                         <div class="form-group">
@@ -209,28 +211,28 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">企业名称：</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" placeholder="企业名称">
+                                <input type="text" class="form-control" name="companyName" placeholder="企业名称">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">企业楼层位置：</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" placeholder="企业楼层位置">
+                                <input type="text" class="form-control" name="companyAddress" placeholder="企业楼层位置">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">企业联系人：</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" placeholder="企业联系人">
+                                <input type="text" class="form-control"name="companyResponsible" placeholder="企业联系人">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">企业联系电话：</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" placeholder="企业联系电话">
+                                <input type="text" class="form-control"name="companyPhone" placeholder="企业联系电话">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-default">新&nbsp;&nbsp;增</button>
+                        <button type="button" id="AddCpmpany_btn" class="btn btn-default">新&nbsp;&nbsp;增</button>
                     </form>
                 </div>
           
@@ -855,7 +857,55 @@ $(function(){
 	
 	})
 	
+
 })
+
+$('#addCompany').on("click",function(){
+	
+	 $('#mycarport').removeClass("active");
+	 $('#AddCpmpany').addClass("active");
+	
+});
+
+
+$('#AddCpmpany_btn').on("click",function(){
+	
+
+	var  userName   = $("[name='userName']").val() ;//用户名
+	var  userPassword= $("[name='userPassword']").val() ;//用户密码
+	var  companyName= $("[name='companyName']").val() ;// 企业名称
+	var companyAddress= $("[name='companyAddress']").val() ;// 企业地址
+	var companyResponsible= $("[name='companyResponsible']").val() ;// 企业责任人
+	var companyPhone= $("[name='companyPhone']").val() ;// 企业电话
+
+	var parameter = {
+			"userName":userName ,
+			"userPassword"	:userPassword ,
+			"companyPhone"	:companyPhone ,
+			"companyResponsible":companyResponsible ,
+			"companyAddress"	:companyAddress ,
+			"companyName"	:companyName 
+		};
+	$.ajax({
+		type : "POST",
+		async : true,
+		data : parameter,
+		url : "/company/save",
+		success : function(data) {
+			
+		if (data == "0") {
+			alert("修改成功");
+		}else{
+			alert("修改失败");
+		}
+		
+		}
+	});
+
+});
+
+
+
 
 function Update(){
 	var managerId = $("[name='managerId']").val() ; // 管理员ID

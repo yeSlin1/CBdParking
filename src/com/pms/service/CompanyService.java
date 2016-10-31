@@ -72,5 +72,11 @@ public interface CompanyService {
 		 * @return
 		 */
 		public List<Company> findall();
+		
+		/**
+		 * 保存企业信息
+		 */
+		public int save(Company company);
+		
 
 }

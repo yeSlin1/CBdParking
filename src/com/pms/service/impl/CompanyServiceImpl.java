@@ -117,6 +117,14 @@ public class CompanyServiceImpl implements CompanyService{
 	public List<Company> findall() {
 		// TODO Auto-generated method stub
 		return companyMapper.findAllCompany();
+	}
+
+	@Override
+	public int save(Company company) {
+		// TODO Auto-generated method stub
+		
+		
+		return companyMapper.addCompany(company);
 	}                          
 
 
