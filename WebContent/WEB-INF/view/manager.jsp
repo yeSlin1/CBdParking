@@ -29,7 +29,7 @@
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#home"  data-toggle="tab"  aria-expanded="true">Home</a></li>
                 <li ><a href="#updateManagerInfoBtnDiv" data-toggle="tab"  aria-expanded="true" >个人信息</a></li>
-                <li ><a href="#mycarport" data-toggle="tab"  aria-expanded="true" onclick="changlist('company','${manager.userType}')" >企业用户管理</a></li>
+                <li ><a href="#mycarport" data-toggle="tab"  aria-expanded="true" onclick="changCompanylist()" >企业用户管理</a></li>
              
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -138,6 +138,7 @@
                     <div class="myTableDiv" style="height: 290px;">
                         <div class="table-responsive">
                             <h3 align="left"> 企业用户管理</h3>
+                            <input type="text" id="ComtableValue" style="display:none;" value="" >
                             <div align="right">
                                 <div class="col-sm-4">
                                     <div class="input-group">
@@ -884,6 +885,36 @@ function Update(){
 		}
 	});
 }
+
+function changCompanylist(){
+	var $ComtableValue = $('#ComtableValue');
+	
+	if ( $ComtableValue.val()!=""&& $ComtableValue.val()!=null) {
+		
+	} else {	
+	$.ajax({
+		type : "POST",
+		async : true,
+		url : "/company/list",
+		success : function(data) {
+		console.log(data);	
+        var $table =$('#Comtable');
+	    for (var  i= 0; i <5; i++) {
+	    	var tr = "<tr><td>"+data[i].companyId+"</td>"
+	    	+"<td>"+data[i].companyName+"</td>"
+	    	+"<td>"+data[i].companyAddress+"</td>"
+	    	+"<td>"+data[i].companyResponsible+"</td>"
+	    	+"<td>"+data[i].companyPhone+"</td></tr>";
+	    	$ComtableValue.val(data);
+			//$("table").append(tr);
+			$table.append(tr);
+
+	   }
+		}
+	});
+	}
+}
+
 
 function Complainlist(){
 	var $ComplainData = $('#ComplainData');

@@ -111,6 +111,12 @@ public class CompanyServiceImpl implements CompanyService{
 		int companyId=company.getCompanyId();
 		int i=mapper.RentCBDParkingPage(companyId);
 		return i%PAGE_NUM==0?i/PAGE_NUM:(i/PAGE_NUM)+1;
+	}
+
+	@Override
+	public List<Company> findall() {
+		// TODO Auto-generated method stub
+		return companyMapper.findAllCompany();
 	}                          
 
 

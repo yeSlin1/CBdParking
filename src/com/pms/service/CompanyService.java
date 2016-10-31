@@ -67,7 +67,10 @@ public interface CompanyService {
 		 */
 		public int findRentedCBDParkingPageByCompany (Company company);
 		
-		
-		
+		/**
+		 *管理员查询 所有的企业信息
+		 * @return
+		 */
+		public List<Company> findall();
 
 }
