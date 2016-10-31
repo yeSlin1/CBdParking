@@ -1,0 +1,127 @@
+﻿希望以文件记录异常信息，甚至记录程序正常运行的关键步骤信息，而不是在控制台上输出，这种情况该如何处理呢？    
+
+
+使用流行的开源日志记录工具 -log4j来实现
+
+
+日志（log）
+主要用来记录系统运行中一些重要操作信息
+便于监视系统运行情况，帮助用户提前发现和避开可能出现的问题，或者出现问题后根据日志找到原因
+
+日志分类		
+SQL日志、异常日志、业务日志
+
+
+log4j是一个非常优秀的开源日志记录工具
+控制日志的输出级别
+控制日志信息输送的目的地是控制台、文件等
+控制每一条日志的输出格式
+
+
+
+使用：
+1:导入jar包
+2：src同目录下建立log4j.properties文件
+3：编写日志
+
+案例01
+log4j.rootLogger=debug,appender1//  appender1是自己指定的名字
+log4j.appender.appender1=org.apache.log4j.ConsoleAppender
+log4j.appender.appender1.layout=org.apache.log4j.SimpleLayout
+
+ private static Logger logger = Logger.getLogger(TestLogger.class); 
+ 		//  记录 debug 级别的信息   
+	        logger.debug("This is debug message.");  
+	        //  记录 info 级别的信息   
+	        logger.info("This is info message.");  
+	        //  记录 error 级别的信息   
+	        logger.error("This is error message."); 
+	        //规则
+	        	//Loggers组件在此系统中被分为五个级别：DEBUG、INFO、WARN、ERROR和FATAL
+	        	//DEBUG < INFO < WARN < ERROR < FATAL
+
+
+想想catch中应该用什么级别
+
+
+注意这里我们需要主要配置这三个玩意
+1、Loggers 
+2、Appenders 
+3、Layouts 
+
+Appenders 追加
+禁用和使用日志请求只是Log4j的基本功能，Log4j日志系统还提供许多强大的功能，比如允许把日志输出到不同的地方，如控制台（Console）、文件（Files）等，可以根据天数或者文件大小产生新的文件，可以以流的形式发送到其它地方等等。
+org.apache.log4j.ConsoleAppender（控制台） 
+org.apache.log4j.FileAppender（文件） 
+org.apache.log4j.DailyRollingFileAppender（每天产生一个日志文件）隔一段时间 
+org.apache.log4j.RollingFileAppender（文件大小到达指定尺寸的时候产生一个新的文件） 
+org.apache.log4j.WriterAppender（将日志信息以流格式发送到任意指定的地方） 
+
+
+
+布局主要格式为
+ 	    1.org.apache.log4j.HTMLLayout （以 HTML 表格形式布局）， 
+　　        2.org.apache.log4j.PatternLayout （可以灵活地指定布局模式）， 
+　　        3.org.apache.log4j.SimpleLayout （包含日志信息的级别和信息字符串）， 
+　　        4.org.apache.log4j.TTCCLayout （包含日志产生的线程、类别等等信息） 
+
+
+
+
+
+
+案例2：将错误信息输出到html文件中
+log4j.rootLogger=debug,appender1  
+log4j.appender.appender1=org.apache.log4j.FileAppender
+log4j.appender.appender1.File=c:\\myLog4J.html
+log4j.appender.appender1.layout=org.apache.log4j.HTMLLayout
+
+
+案例3：输出日志信息到文件中
+log4j.appender.appender2=org.apache.log4j.FileAppender
+log4j.appender.appender2.File=c:\\myLog4J.txt
+log4j.appender.appender2.layout=org.apache.log4j.SimpleLayout
+
+
+案例4：自定义输出样式	
+	log4j.appender.appender3=org.apache.log4j.ConsoleAppender 
+	log4j.appender.appender3.layout=org.apache.log4j.PatternLayout  
+	log4j.appender.appender3.layout.ConversionPattern =%d{yyyy-MM-dd hh:mm:ss} %r %t %p - %c -%l -%m%n  
+
+ Log4J 采用类似 C 语言中的 printf 函数的打印格式格式化日志信息，打印参数如下： %m 输出代码中指定的消息 
+　　 %p 输出优先级，即 DEBUG ， INFO ， WARN ， ERROR ， FATAL
+　　 %r 输出自应用启动到输出该 log 信息耗费的毫秒数 
+　　 %c 输出所属的类目，通常就是所在类的全名 
+　　 %t 输出产生该日志事件的线程名 
+　　 %n 输出一个回车换行符， Windows 平台为 “rn” ， Unix 平台为 “n”
+　　 %d 输出日志时间点的日期或时间，默认格式为 ISO8601 ，也可以在其后指定格式，比如： %d{yyy MMM dd HH:mm:ss,SSS} ，输出类似： 2002 年 10 月 18 日 22 ： 10 ： 28 ， 921
+　　 %l 输出日志事件的发生位置，包括类目名、发生的线程，以及在代码中的行数。
+
+
+
+案例05
+DailyRollingFileAppender是日志记录软件包Log4J中的一个Appender，它能够按一定的频度滚动日志记录文件。
+log4j.appender.file=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.file.DatePattern='.'yyyy-MM-dd-HH-mm
+log4j.appender.file.File=c:\\run.log
+log4j.appender.file.Append=true
+log4j.appender.file.layout=org.apache.log4j.PatternLayout
+
+
+在DailyRollingFileAppender中可以指定monthly(每月)、 weekly(每周)、daily(每天)、half-daily(每半天)、hourly(每小时)和minutely(每分钟)六个频度，这是通过为 DatePattern选项赋予不同的值来完成的。DatePattern选项的有效值为：
+'.'yyyy-MM,对应monthly(每月)
+'.'yyyy-ww,对应weekly(每周)
+'.'yyyy-MM-dd,对应daily(每天)
+'.'yyyy-MM-dd-a,对应half-daily(每半天)
+'.'yyyy-MM-dd-HH,对应hourly(每小时)
+'.'yyyy-MM-dd-HH-mm,对应minutely(每分钟)
+log4j.appender.file.layout.ConversionPattern=%c %x - %m%n  
+
+
+
+简单解决中文：
+log4j.appender.appender3.encoding=GBK
+
+
+
+

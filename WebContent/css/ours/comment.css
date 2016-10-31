@@ -1,0 +1,23 @@
+body{
+    background-image: url('../../img/back.jpg');
+}
+
+
+.topDiv{
+    width:auto;
+    height: 200px;
+}
+.navigationDiv{
+    width: 90%;
+}
+
+.personalDiv{
+    width:90%;
+}
+.myTableDiv{
+    width:95%;
+    height: 310px;;
+}
+.pageDiv{
+    width:95%;
+}

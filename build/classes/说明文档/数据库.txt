@@ -1,0 +1,61 @@
+﻿1..User
+user_id		user_name()	user_password	
+user_type(0,1,2,3...<个人用户，企业用户，超级管理员，普通管理员>)
+
+2.Personal(个人用户)
+personal_id	personal_name	personal_realName	personal_password		
+personal_phone	personal_idCard	personal_address	personal_job
+tenant_reputation(租用信誉)	renter_reputation(出租信誉)
+user_id(外键)
+
+
+3.Parking(个人停车位)
+parking_id	property_no(产权证编号)		parking_picture(图片地址)
+parking_address(车位地址)	parking_no(停车位编号) parking_type(停车位审批状态<0,1>)
+personal_id(外键)
+
+4.ParkingMessage(发布的租车信息)
+parkingMsg_id	parkingMsg_start(开始时间)	parkingMsg_end（结束时间）	
+price(价格)	//parkingMsg_type(状态)	
+parking_id(外键)
+
+
+5.rentLog(租-日志)
+rentLog_id	personal_id(租客<外键>)
+tenant_msg(抢租客留言)	rentLog_type(租赁的状态<0,1>)
+parkingMsg_id(外键)
+
+6.Complain(投诉)
+complain_id	complain_time	complain(投诉内容)	complain_type(受理状态<0,1>) 
+complain_people(投诉方向<0,1>)		
+parkingMsg_id(外键)
+
+7.Company(企业用户)
+company_id	company_name(企业名称)	company_address	
+company_responsible(责任人)	company_phone
+user_id(外键)
+
+8.Manager(管理员)
+manager_id	manager_name	manager_phone
+manager_no	
+user_id(外键)
+
+9.Manager_Power(管理员权限关系表)
+mp_id	manager_id(外键)	power_id(外键)
+
+10.Power（权限）
+power_id	power_name
+
+11.CBDParking(CBD停车位)
+cbd_id		cbd_location
+company_id(外键)	cbd_no（CBD编号）
+
+12.Contract(合约)
+contract_id	contract_no	contract_picture
+contract_start	contract_end	contract_type(是否解约状态<0,1>)
+contract_direction(合约类型<出租合约、租赁合约>)
+company_id(外键)
+
+13.Contract_CBDParking(关系表)
+cc_id	contract_id	cbd_id	
+

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <!--css-->
+    <link rel="stylesheet" href="css/login/reset.css"/>
+    <link rel="stylesheet" href="css/login/supersized.css">
+
+</head>
+<body oncontextmenu="return false">
+
+<!--包括登录的DIV块-->
+<div class="page-container">
+    <h1>Login</h1>
+
+    <form action="" method="post">
+        <div>
+            <div>
+            <input id="username" type="text" name="username" placeholder="Username" autocomplete="off"/>
+                <span id="usernameMsg" ></span>
+            </div>
+
+        </div>
+        <div>
+            <div>
+            <input id="password" type="password" name="password" placeholder="Password" oncontextmenu="return false"
+                   onpaste="return false"/>
+                <span id="passwordMsg"></span>
+            </div>
+        </div>
+        <div>
+            <input type="submit" value="Sign in" class="loginBtn"/>
+        </div>
+    </form>
+</div>
+
+<div class="connect">
+    <p>If we can only encounter each other rather than stay with each other,then I wish we had never encountered.</p>
+    <p style="margin-top:20px;">如果只是遇见，不能停留，不如不遇见。</p>
+</div>
+
+<script src="js/jquery-1.7.js" type="text/javascript"></script>
+<script src="js/login/supersized.3.2.7.min.js"></script>
+<script src="js/login/supersized-init.js"></script>
+<script src="js/login/loginPage.js"></script>
+
+</body>
+</html>
