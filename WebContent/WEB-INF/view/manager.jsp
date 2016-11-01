@@ -895,6 +895,9 @@ $('#AddCpmpany_btn').on("click",function(){
 			
 		if (data == "0") {
 			alert("修改成功");
+			 $('#AddCpmpany').removeClass("active");
+			 $('#home').addClass("active");
+			 $('#ComtableValue').val("");
 		}else{
 			alert("修改失败");
 		}
@@ -927,6 +930,7 @@ function Update(){
 		success : function(data) {
 			
 		if (data == "0") {
+	
 			alert("修改成功");
 		}else{
 			alert("修改失败");

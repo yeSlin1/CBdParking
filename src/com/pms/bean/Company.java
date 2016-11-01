@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 //企业用户实体类
-public class Company extends User implements Serializable {
+public class Company  implements Serializable {
 
 
 	private int companyId;// 企业ID

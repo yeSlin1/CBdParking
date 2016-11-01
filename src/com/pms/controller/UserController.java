@@ -37,9 +37,9 @@ public class UserController {
 
 				return "redirect:/manager/managers?managerId="+superManager.getManagerId();
 			case 1:
-				Company company = (Company) ucheck;
-				session = req.getSession();
-				session.setAttribute("company", company);
+//				Company company = (Company) ucheck;
+//				session = req.getSession();
+//				session.setAttribute("company", company);
 				return "/company";
 			case 2:
 				Personal personal = (Personal) ucheck;

@@ -22,7 +22,7 @@ public interface CompanyMapper {
 	 * 已测试 可用
 	 */
 	@Insert("insert into company values (null,#{company.companyName},#{company.companyAddress},"
-			+ "#{company.companyResponsible},#{company.companyPhone},#{company.user.userId}) ")
+			+ "#{company.companyResponsible},#{company.companyPhone},#{company.userId}) ")
 	public int addCompany(@Param("company") Company company);
 	
 	/**

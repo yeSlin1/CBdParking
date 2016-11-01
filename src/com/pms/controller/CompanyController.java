@@ -65,7 +65,8 @@ public class CompanyController {
 		
 		   user.setUserType(2);
 		   userService.add(user);
-		   company.setUserId(userService.fingbyName(user.getUserName()).getUserId());
+		   User user2 = userService.fingbyName(user.getUserName());
+		   company.setUserId(user2.getUserId());
 		   company.setCbdParking(null);
 		   company.setContract(null);
 		   impl.save(company);
