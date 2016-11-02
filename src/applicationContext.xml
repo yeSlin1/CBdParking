@@ -9,29 +9,44 @@
     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
     http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-4.2.xsd">
-	
-	<context:component-scan base-package="com.pms"/>
+
+	<context:component-scan base-package="com.pms" />
 	<!-- 启用自动扫描 -->
-	
+
 	<aop:aspectj-autoproxy />
 	<!-- 启用切面自动代理 -->
-	
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-	<!-- 配置数据源 -->
-		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-		<property name="url"  value="jdbc:mysql://localhost:3306/cbdparkingmsdb?useUnicode=true&amp;characterEncoding=UTF-8"/>
+
+	<bean id="ehCacheManager"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:/ehcache.xml" />
+		<property name="shared" value="true" />
+	</bean>
+
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+		<property name="cacheManager" ref="ehCacheManager" />
+	</bean>
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<!-- 配置数据源 -->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/cbdparkingmsdb?useUnicode=true&amp;characterEncoding=UTF-8" />
 		<property name="username" value="root"></property>
 		<property name="password" value="894862"></property>
 	</bean>
-	
+
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-	<!-- 获得访问数据库的Session -->
-		<property name="dataSource"  ref="dataSource"/>
-		<property name="configLocation"  value="classpath:SqlMapConfig.xml"/>	
+		<!-- 获得访问数据库的Session -->
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:SqlMapConfig.xml" />
 	</bean>
-	
+
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-	<!-- 注入mappers -->
+		<!-- 注入mappers -->
 		<property name="basePackage" value="com.pms.mapper"></property>
 	</bean>
+
+	
+
 </beans>

@@ -6,7 +6,9 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -53,6 +55,7 @@ public interface UserMapper {
 	 * @return  返回一个User对象显示
 	 * ok
 	 */
+	
 	@Select("select * from users where user_id=#{userId}")
 	@Results({
 		@Result(id=true,column="user_id",property="userId",javaType=Integer.class),
@@ -68,6 +71,8 @@ public interface UserMapper {
 	 * @return
 	 * ok
 	 */
+	
+
 	@Select("select * from users where user_name=#{userName}")
 	@Results({
 		@Result(id=true,column="user_id",property="userId",javaType=Integer.class),

@@ -22,6 +22,9 @@
 	<mvc:resources location="/css/" mapping="/css/**"></mvc:resources>
 	<mvc:resources location="/html/" mapping="/html/**"></mvc:resources>
 	<mvc:default-servlet-handler />
+	
+	
+	
 	<!-- restful风格需要这样做，避免对固定资源的访问也被拦截 -->
 
 	<bean id="validator"

@@ -8,6 +8,10 @@ import java.io.Serializable;
  *
  */
 public class User  implements Serializable{
+	/** 缓存名称 */
+	public static final String USER_NAME = "user_name";
+	/** 缓存key */
+	public static final String USER_KEY = "user_key";
 	private  int  userId;//用户ID
 	private String userName;//用户名
 	private String userPassword;//用户密码

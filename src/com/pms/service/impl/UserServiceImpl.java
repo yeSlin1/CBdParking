@@ -2,7 +2,13 @@ package com.pms.service.impl;
 
 import javax.annotation.Resource;
 
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Ehcache;
+import net.sf.ehcache.Element;
+
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.pms.bean.Personal;
 import com.pms.bean.User;
@@ -22,19 +28,39 @@ public class UserServiceImpl implements UserService {
 	private ManagerMapper manangerMapper;
 	@Resource
 	private CompanyMapper companyMapper;
+   
+	/** CacheManager */
+	private static final CacheManager cacheManager = CacheManager.create();
+	
 
+	
 	@Override
 	public Boolean login(User userlog) {
 		
-		User ucheck = userMapper.getUserByUserName(userlog.getUserName());
-//		if (userlog.getUserName()) {
-//			
+		User ucheck = fingbyName(userlog.getUserName());
+		
+		Ehcache cache = cacheManager.getEhcache(User.USER_NAME);
+	
+//		if (cacheElement!=null) {
+//			 return true;
 //		}
+		
+
+//		if (userlog.getUserName()) {
+//		}
+		
 		if (ucheck == null) {
 			// System.out.println(ucheck.toString());
 			return false;
 		} else {
 			if (ucheck.getUserPassword().equals(userlog.getUserPassword())) {
+				cache.put(new Element(User.USER_KEY,ucheck));
+				
+				Element cacheElement = cache.get(User.USER_KEY);
+				User ucheck2 = (User) cacheElement.getObjectValue();
+				
+				
+				System.out.print(ucheck2.toString());
              return true;
 			} else {
 				// 用户名正确但是密码错误
@@ -80,7 +106,8 @@ public class UserServiceImpl implements UserService {
 		return userMapper.getUserById(userId);
 	}
 
-	@Override
+	@Cacheable(User.USER_NAME)
+	@Transactional(readOnly = true)
 	public User fingbyName(String userName) {
 		// TODO Auto-generated method stub
 		return userMapper.getUserByUserName(userName);
