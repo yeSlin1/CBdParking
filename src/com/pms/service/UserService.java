@@ -12,7 +12,7 @@ public interface UserService {
 	 * @return 1为成功，0为失败
 	 * 返回user对象
 	 */
-	public User  login(User user);
+	public Boolean  login(User user);
 	
 	/**
 	 * 注册

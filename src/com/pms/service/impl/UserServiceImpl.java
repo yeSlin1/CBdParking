@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
 	private CompanyMapper companyMapper;
 
 	@Override
-	public User login(User userlog) {
+	public Boolean login(User userlog) {
 		
 		User ucheck = userMapper.getUserByUserName(userlog.getUserName());
 //		if (userlog.getUserName()) {
@@ -32,27 +32,16 @@ public class UserServiceImpl implements UserService {
 //		}
 		if (ucheck == null) {
 			// System.out.println(ucheck.toString());
-			return null;
+			return false;
 		} else {
 			if (ucheck.getUserPassword().equals(userlog.getUserPassword())) {
-				switch (ucheck.getUserType()) {
-				// 0超级管理员 1企业用户 2个人用户 3操作员
-				// 正常登陆
-				case 0:
-					return manangerMapper.findManagerByUserId(ucheck.getUserId());
-				case 1:
-					return companyMapper.findCompanyByUserId(ucheck.getUserId());
-				case 2:
-					return personalMapper.findPersonlByUserId(ucheck.getUserId());
-				case 3:
-					return manangerMapper.findManagerByUserId(ucheck.getUserId());
-				}
+             return true;
 			} else {
 				// 用户名正确但是密码错误
-				return null;
+				return false;
 			}
 		}
-		return null;
+		
 	}
 
 	@Override

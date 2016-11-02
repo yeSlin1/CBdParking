@@ -170,7 +170,11 @@ public interface ManagerService {
 	 */
 	public int acceptComplain(Complain complain);
 	
-	//通过UserId来查找Manager
+	/**
+	 * 通过UserId来查找Manager
+	 * @param userId
+	 * @return
+	 */
 	
 	public Manager findManagerByUserId(int userId);
 }

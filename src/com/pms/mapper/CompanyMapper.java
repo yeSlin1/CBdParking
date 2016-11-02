@@ -152,5 +152,5 @@ public interface CompanyMapper {
 		@Result(property="userPassword",column="user_password"),
 		@Result(property="userType",column="user_type")
 	})
-	public Company findCompanyByUserId(int userId);
+	public Company findCompanyByUserId(@Param("userId")int userId);
 }
